@@ -53,7 +53,7 @@ public:
 	}
 
 
-	double test(int t=1, vector<double> data){
+	double test(int t=1){
 		switch(t){
 		case 1:
 			//Prop Test
@@ -63,7 +63,7 @@ public:
 			return Integrate();
 		case 3:
 			//Derivative Test
-			return Dericative();
+			return Derivative();
 		}
 	}
 private:
@@ -89,11 +89,14 @@ private:
 		vector<double> der;
 		double diff, avg;
 
-		for (int i=0; i < PV.size(); i++){
+		for (int i=0; i < buffer; i++){
 			diff = (PV[i+1]-PV[i])/(time[i+1]-time[i]);
+
+			cout <<i<< " Diff: "<<diff << endl;
 			der.push_back(diff);
 		}
-		for (int i=0; i < der.size(); i++){
+
+		for (int i=0; i <= buffer-1; i++){
 			avg += der[i];
 		}
 		avg = avg/der.size();
