@@ -1,6 +1,9 @@
 #include <iostream>
 #include <vector>
 
+//Changes...
+
+
 using namespace std;
 
 class PID{
@@ -49,6 +52,20 @@ public:
 		return correction;
 	}
 
+
+	double test(int t=1, vector<double> data){
+		switch(t){
+		case 1:
+			//Prop Test
+			return Prop();
+		case 2:
+			//Integrate Test
+			return Integrate();
+		case 3:
+			//Derivative Test
+			return Dericative();
+		}
+	}
 private:
 
 	double Prop(){
