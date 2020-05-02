@@ -1,6 +1,5 @@
-#include <iostream>
-#include <vector>
-
+#ifndef PID_H
+#define PID_H
 //Changes...
 
 
@@ -111,3 +110,5 @@ private:
 		return avg;
 	}
 };
+
+#endif
