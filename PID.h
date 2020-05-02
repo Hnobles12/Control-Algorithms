@@ -75,7 +75,7 @@ private:
 	}
 
 	double Integrate(){
-		double val;
+		double val = 0;
 		double num;
 		for (int i = 0; i < buffer-1; i++){
 			num = (time[i+1]-time[i])*(PV[i+1]+PV[i]);
