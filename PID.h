@@ -8,20 +8,21 @@ using namespace std;
 
 class PID{
 public:
-	int buffer = 10;
-	double SP;
-	vector<double> PV;
-	vector<double> time;
-	double err, tot_gain, gain, correction;
+	int buffer;
+	double err, prop_gain, gain, correction, SP, ID_gain;
+	vector<double> PV,time;
 
-	PID(vector<double>* pv, vector<double>* t, double sp = 0,double K=0){
+	PID(vector<double>* pv, vector<double>* t, double sp = 0){
 		PV = *pv;
 		time = *t;
 		SP = sp;
 		err = 0;
-		gain = K;
-		tot_gain = 0;
 		correction = 0;
+		prop_gain=0;
+		buffer = 10;
+		ID_gain = 0;
+
+
 	}
 
 	void set_target(double setpoint){
@@ -32,8 +33,8 @@ public:
 		buffer = buff_size;
 	}
 
-	void set_gain(double K){
-		gain = K;
+	void set_Pgain(double K){
+		prop_gain = K;
 	}
 
 	double update(vector<double>* dat){
@@ -44,10 +45,10 @@ public:
 			PV.erase(PV.begin(),PV.end()-buffer);
 		}
 	 	//Calculate Error
-		err = SP - PV[PV_size];
+		err = SP - average();
 
-		tot_gain = Prop() + Integrate() + Derivative();
-		correction = tot_gain*err;
+		ID_gain = Integrate() + Derivative();
+		correction = prop_gain*(err + ID_gain*err);
 
 		return correction;
 	}
@@ -66,12 +67,18 @@ public:
 			return Derivative();
 		}
 	}
-private:
 
-	double Prop(){
+private:
+	double average(){
 		double PV_size = PV.size();
-		double val = PV[PV_size]/SP;
-		return val;
+		double avg,sum = 0,0;
+
+		for (int i=0; i<PV_size; i++){
+			sum += PV[i];
+		}
+
+		avg = sum/PV_size;
+		return avg;
 	}
 
 	double Integrate(){
