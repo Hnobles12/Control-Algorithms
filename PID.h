@@ -8,7 +8,7 @@ using namespace std;
 class PID{
 public:
 	int buffer;
-	double err, prop_gain, gain, correction, SP, ID_gain;
+	double err, prop_gain, correction, SP, ID_gain;
 	vector<double> PV,time;
 
 	PID(vector<double>* pv, vector<double>* t, double sp = 0){
@@ -57,7 +57,7 @@ public:
 		switch(t){
 		case 1:
 			//Prop Test
-			return Prop();
+			return 0;
 		case 2:
 			//Integrate Test
 			return Integrate();
@@ -70,7 +70,8 @@ public:
 private:
 	double average(){
 		double PV_size = PV.size();
-		double avg,sum = 0,0;
+		double avg,sum;
+		sum = 0;
 
 		for (int i=0; i<PV_size; i++){
 			sum += PV[i];
