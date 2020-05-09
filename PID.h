@@ -3,15 +3,13 @@
 
 #include <vector>
 
-using namespace std;
-
 class PID{
 public:
 	int buffer;
 	double err, prop_gain, correction, SP, ID_gain;
-	vector<double> PV,time;
+	std::vector<double> PV,time;
 
-	PID(vector<double>* pv, vector<double>* t, double sp = 0){
+	PID(std::vector<double>* pv, std::vector<double>* t, double sp = 0){
 		PV = *pv;
 		time = *t;
 		SP = sp;
@@ -36,9 +34,9 @@ public:
 		prop_gain = K;
 	}
 
-	double update(vector<double>* dat){
+	double update(std::vector<double>* dat){
 		//Flush Buffer
-		vector<double> data = *dat;
+		std::vector<double> data = *dat;
 		int PV_size = PV.size();
 	 	if (PV_size > 10){
 			PV.erase(PV.begin(),PV.end()-buffer);
@@ -93,7 +91,7 @@ private:
 	}
 
 	double Derivative(){
-		vector<double> der;
+		std::vector<double> der;
 		double diff, avg;
 
 		for (int i=0; i < buffer; i++){
