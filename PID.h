@@ -2,7 +2,6 @@
 #define PID_H
 
 #include <vector>
-#include <iostream>
 
 using namespace std;
 
@@ -100,7 +99,6 @@ private:
 		for (int i=0; i < buffer; i++){
 			diff = (PV[i+1]-PV[i])/(time[i+1]-time[i]);
 
-			cout <<i<< " Diff: "<<diff << endl;
 			der.push_back(diff);
 		}
 
