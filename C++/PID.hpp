@@ -34,13 +34,27 @@ public:
 		prop_gain = K;
 	}
 
-	double update(std::vector<double>* dat){
+	double update(std::vector<double>* dat, std::vector<double>* t){
 		//Flush Buffer
 		std::vector<double> data = *dat;
+		std::vector<double> tm = *t;
+
+		time = tm;
+		PV = data;
+
 		int PV_size = PV.size();
-	 	if (PV_size > 10){
+		int time_size = time.size();
+		if ((PV_size != buffer) or (time_size != buffer)){
+			throw "Error: Data or Time vector length does not match buffer size.";
+		}
+	 	/*
+		 if (PV_size > buffer){
 			PV.erase(PV.begin(),PV.end()-buffer);
 		}
+		if (time_size > buffer){
+			time.erase(time.begin(),time.end()-buffer);
+		}
+		*/
 	 	//Calculate Error
 		err = SP - average();
 
