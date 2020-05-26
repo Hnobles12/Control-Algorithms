@@ -1,4 +1,5 @@
 from statistics import mean
+from exceptions import *
 
 class PID:
     def __init__(self, data, time, setpoint=0):
@@ -25,14 +26,8 @@ class PID:
         time_size = len(time)
         
         if (data_size != self.buffer) or (time_size != self.buffer):
-            raise Exception("Error: Data or Time arrag size does not match buffer size.")
-        '''
-        if data_size > buffer:
-            data = data[data_size-buffer:]
+            raise DataLengthNotMatching
 
-        if time_size > buffer:
-            time = time[time_size-buffer]
-        '''
         self.data = data
         self.time = time
 
