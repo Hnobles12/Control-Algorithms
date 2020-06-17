@@ -11,16 +11,14 @@ private:
 
 public:
     On_Off(double setpoint=0);
-
     void set_setpoint(double setpoint);
     void set_tolerance(double tolerance);
     bool get_correction(double value);
-    
 };
 
 On_Off::On_Off(double setpoint=0)
 {
-    //Optional arguments: setpoint, gain, invert
+    //Optional arguments: setpoint
     On_Off::SP = setpoint;
 }
 
@@ -30,20 +28,16 @@ void On_Off::set_setpoint(double setpoint){
 }
 
 void On_Off::set_tolerance(double tolerance){
+    //Method sets the tolerance.
     On_Off::TOL = tolerance;
 }
 
 bool On_Off::get_correction(double value){
     double allowed_err = std::abs(value) + On_Off::TOL; 
     double err = std::abs(On_Off::SP - value);
-    if (err > allowed_err){
-        return true;
-    }
-    else{
-        return false;
-    }
-    
-}
 
+    if (err > allowed_err){return true;}
+    else{return false;}
+}
 
 #endif
