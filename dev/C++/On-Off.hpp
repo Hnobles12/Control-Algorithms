@@ -16,8 +16,7 @@ public:
     bool get_correction(double value);
 };
 
-On_Off::On_Off(double setpoint=0)
-{
+On_Off::On_Off(double setpoint=0){
     //Optional arguments: setpoint
     On_Off::SP = setpoint;
 }
@@ -33,10 +32,7 @@ void On_Off::set_tolerance(double tolerance){
 }
 
 bool On_Off::get_correction(double value){
-    double allowed_err = std::abs(value) + On_Off::TOL; 
-    double err = std::abs(On_Off::SP - value);
-
-    if (err > allowed_err){return true;}
+    if (std::abs(On_Off::SP - value) > On_Off::TOL){return true;}
     else{return false;}
 }
 
