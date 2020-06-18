@@ -1,5 +1,5 @@
-#ifndef ON_OFF
-#define ON_OFF
+#ifndef ON_OFF_HPP
+#define ON_OFF_HPP
 
 #include <cmath>
 
