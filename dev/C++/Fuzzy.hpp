@@ -26,6 +26,7 @@ public:
     void set_bounds(double bounds[2]){
         range[0] = bounds[0];
         range[1] = bounds[1];
+        tot_range = std::abs(range[1]-range[0]);
     }
 
     double get_correction(double value){
